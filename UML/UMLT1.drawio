@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Página-1" id="0CkupFag_WewfgqgtOfi">
-    <mxGraphModel dx="486" dy="2732" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="654" dy="2837" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -177,7 +177,7 @@
         <mxCell id="aoJ6SqMu8uhttpynUdr3-17" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=16;" value="Paciente (Cliente)&lt;div&gt;Profissionais&lt;/div&gt;" vertex="1">
           <mxGeometry height="30" width="170" x="1310" y="-640" as="geometry" />
         </mxCell>
-        <mxCell id="A6L5eCiduG3Gzx2uLgEy-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ControladorClinica" vertex="1">
+        <mxCell id="A6L5eCiduG3Gzx2uLgEy-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ControladorClinicas" vertex="1">
           <mxGeometry height="380" width="340" x="2090" y="-940" as="geometry" />
         </mxCell>
         <mxCell id="A6L5eCiduG3Gzx2uLgEy-2" parent="A6L5eCiduG3Gzx2uLgEy-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- clinicas: List(Clinica)" vertex="1">
@@ -186,8 +186,20 @@
         <mxCell id="A6L5eCiduG3Gzx2uLgEy-3" parent="A6L5eCiduG3Gzx2uLgEy-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="340" y="150" as="geometry" />
         </mxCell>
-        <mxCell id="A6L5eCiduG3Gzx2uLgEy-4" parent="A6L5eCiduG3Gzx2uLgEy-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ __init__()&lt;div&gt;+ cadastra_clinica(): None&lt;/div&gt;&lt;div&gt;+ lista_clinicas(): List(Clinica)&lt;/div&gt;&lt;div&gt;+ lista_atendimento_caro(): List(Atendimento)&lt;/div&gt;&lt;div&gt;+ lista_atendimento_barato(): List(Atendimento)&lt;/div&gt;&lt;div&gt;+ procedimento_populares(): List(Procedimento)&lt;/div&gt;&lt;div&gt;+ procedimentos_caros(): List(Procedimento)&lt;/div&gt;&lt;div&gt;+ procedimentos_baratos(): List(Procedimento)&lt;/div&gt;" vertex="1">
+        <mxCell id="A6L5eCiduG3Gzx2uLgEy-4" parent="A6L5eCiduG3Gzx2uLgEy-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ __init__()&lt;div&gt;+ cadastra_clinica(): None&lt;/div&gt;&lt;div&gt;+ lista_clinicas(): List(Clinica)&lt;/div&gt;&lt;div&gt;+ lista_atendimento_caro(): List(Atendimento)&lt;/div&gt;&lt;div&gt;+ lista_atendimento_barato(): List(Atendimento)&lt;/div&gt;&lt;div&gt;+ procedimento_populares(): List(Procedimento)&lt;/div&gt;&lt;div&gt;+ procedimentos_caros(): List(Procedimento)&lt;/div&gt;&lt;div&gt;+ procedimentos_baratos(): List(Procedimento)&lt;/div&gt;&lt;div&gt;+ registra_atendimento(Clinica, Atendimento): None&lt;/div&gt;&lt;div&gt;+ registra_pagamento(Clinica, Pagamento): None&lt;/div&gt;" vertex="1">
           <mxGeometry height="222" width="340" y="158" as="geometry" />
+        </mxCell>
+        <mxCell id="A6L5eCiduG3Gzx2uLgEy-5" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ControladorAtendimento" vertex="1">
+          <mxGeometry height="200" width="280" x="1570" y="-420" as="geometry" />
+        </mxCell>
+        <mxCell id="A6L5eCiduG3Gzx2uLgEy-6" parent="A6L5eCiduG3Gzx2uLgEy-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- atendimento: List(Atendimento)&lt;div&gt;- tipos_atendimento: List(TipoAtendimento)&lt;/div&gt;&lt;div&gt;- clinica: Clinica&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="280" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="A6L5eCiduG3Gzx2uLgEy-7" parent="A6L5eCiduG3Gzx2uLgEy-5" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="280" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="A6L5eCiduG3Gzx2uLgEy-8" parent="A6L5eCiduG3Gzx2uLgEy-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ __init__(clinica)&lt;div&gt;+ inclui_tipo(nome, descrição codigo)&lt;/div&gt;&lt;div&gt;+ inclui_atendimento(Clinica,&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;clinica, paciente, profissional, data, horario, tipo, valor, pagamento)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="116" width="280" y="84" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
