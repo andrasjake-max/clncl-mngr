@@ -14,6 +14,17 @@ class ControladorAtendimentos:
         self.__clinica = clinica
         self.__tipos_atendimento: list[TipoAtendimento] = []
 
+    @property
+    def clinica(self) -> Clinica:
+        return self.__clinica
+
+    @property
+    def tipos_atendimento(self) -> list[TipoAtendimento]:
+        return list(self.__tipos_atendimento)
+
+    def lista_atendimentos(self) -> list[Atendimento]:
+        return list(self.__clinica.atendimentos)
+
     def inclui_tipo(self, nome: str, descricao: str, codigo: int) -> None:
         tipo = TipoAtendimento(nome, descricao, codigo)
         self.__tipos_atendimento.append(tipo)
