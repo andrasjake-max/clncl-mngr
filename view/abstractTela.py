@@ -1,6 +1,9 @@
-class abstractTela():
-    def __init__():
+from abc import ABC, abstractmethod
+
+class AbstractTela(ABC):
+    @abstractmethod
+    def mostra_menu(self):
         pass
-    def mostra_menu():
+    @abstractmethod
+    def le_opcao(self):
         pass
-    

@@ -9,6 +9,7 @@ class Pagamento:
         self.__parcelas = parcelas
         self.__tipo = f"Parcelado em {parcelas}x" if parcelas > 1 else "À vista"
         self.__valor_pago = valor
+        self.__parcelas_restantes = parcelas
 
     @property
     def data(self) -> date:
@@ -40,3 +41,7 @@ class Pagamento:
 
     def efetuar_pagamento(self, valor):
         self.__valor_pago += valor
+
+    def reduzir_parcelas(self, qtd):
+        if self.__parcelas_restantes >= 1:
+            self.__parcelas_restantes -= qtd
