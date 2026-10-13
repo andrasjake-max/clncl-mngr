@@ -1,0 +1,2 @@
+class Clinica:
+    pass

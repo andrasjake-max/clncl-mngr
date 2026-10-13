@@ -1,0 +1,2 @@
+class Pagamento:
+    pass

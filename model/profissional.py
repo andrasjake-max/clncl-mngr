@@ -2,14 +2,7 @@ from model.pessoa import Pessoa
 
 
 class Profissional(Pessoa):
-    def __init__(
-        self,
-        nome: str,
-        data_nascimento: str,
-        cpf: str,
-        especialidade: str,
-        registro: str,
-    ) -> None:
+    def __init__(self, nome: str, data_nascimento: str, cpf: str, especialidade: str, registro: str,) -> None:
         super().__init__(nome, data_nascimento, cpf)
         self.__especialidade = especialidade
         self.__registro = registro
