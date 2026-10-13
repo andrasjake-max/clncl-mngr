@@ -26,7 +26,7 @@ class Atendimento:
         self.__tipo_atendimento = tipo_atendimento
         self.__valor = valor
         self.__pagamento = pagamento
-        self.__procedimentos = list[Procedimento]
+        self.__procedimentos: list[Procedimento] = []
 
     @property
     def clinica(self) -> Clinica:
@@ -91,3 +91,13 @@ class Atendimento:
     @pagamento.setter
     def pagamento(self, pagamento: Pagamento) -> None:
         self.__pagamento = pagamento
+
+    @property
+    def procedimentos(self) -> list[Procedimento]:
+        return self.__procedimentos
+
+    def adiciona_procedimento(self, procedimento: Procedimento) -> None:
+        self.__procedimentos.append(procedimento)
+
+    def remove_procedimento(self, procedimento: Procedimento) -> None:
+        self.__procedimentos.remove(procedimento)

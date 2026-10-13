@@ -1,7 +1,11 @@
-from model.atendimento import Atendimento
-from model.paciente import Paciente
-from model.profissional import Profissional
+from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from model.atendimento import Atendimento
+    from model.paciente import Paciente
+    from model.profissional import Profissional
 
 class Clinica:
     def __init__(

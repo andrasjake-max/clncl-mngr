@@ -15,12 +15,24 @@ class TelaClinicas(AbstractTela):
         print("1 - Listar clínicas")
         print("2 - Cadastrar clínica")
         print("3 - Excluir clínica")
+        print("4 - Gerenciar clínica")
+        print("0 - Voltar")
+
+    def mostra_menu_gerenciar(self) -> None:
+        print("\n=== Gerenciar Clínica ===")
+        print("1 - Cadastrar profissional")
+        print("2 - Remover profissional")
+        print("3 - Listar profissionais")
+        print("4 - Mudar descrição")
+        print("5 - Mostrar descrição")
+        print("6 - Mudar localização")
+        print("7 - Mostrar localização")
         print("0 - Voltar")
 
     def mostra_menu_relatorios(self) -> None:
         print("\n=== Relatórios ===")
-        print("1 - Listar os 10 atendimentos mais caros (com clínica)")
-        print("2 - Listar os 10 atendimentos mais baratos (com clínica)")
+        print("1 - Listar atendimentos mais caros")
+        print("2 - Listar atendimentos mais baratos")
         print("3 - Listar procedimentos mais populares")
         print("4 - Listar procedimentos mais caros (com clínica)")
         print("5 - Listar procedimentos mais baratos (com clínica)")
