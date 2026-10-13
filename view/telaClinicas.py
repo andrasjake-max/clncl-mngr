@@ -9,6 +9,7 @@ class TelaClinicas(AbstractTela):
         print("\n=== Menu de Clínicas ===")
         print("1 - Gerenciar clínicas")
         print("2 - Relatórios")
+        print("3 - Atendimentos")
 
     def mostra_menu_clinicas(self) -> None:
         print("\n=== Gerenciar Clínicas ===")

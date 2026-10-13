@@ -8,7 +8,7 @@ class Pagamento:
         self.__valor = valor
         self.__parcelas = parcelas
         self.__tipo = f"Parcelado em {parcelas}x" if parcelas > 1 else "À vista"
-        self.__valor_pago = valor
+        self.__valor_pago = 0.0
         self.__parcelas_restantes = parcelas
 
     @property
@@ -36,12 +36,20 @@ class Pagamento:
         self.__parcelas = parcelas
 
     @property
+    def valor_pago(self) -> float:
+        return self.__valor_pago
+
+    @property
+    def parcelas_restantes(self) -> int:
+        return self.__parcelas_restantes
+
+    @property
     def tipo(self):
         return self.__tipo
 
-    def efetuar_pagamento(self, valor):
+    def efetuar_pagamento(self, valor: float) -> None:
         self.__valor_pago += valor
 
-    def reduzir_parcelas(self, qtd):
+    def reduzir_parcelas(self, qtd: int) -> None:
         if self.__parcelas_restantes >= 1:
             self.__parcelas_restantes -= qtd
