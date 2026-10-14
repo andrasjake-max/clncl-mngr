@@ -2,6 +2,8 @@ from limite.tela_sistema import TelaSistema
 from controle.controlador_pacientes import ControladorPacientes
 from controle.controlador_profissionais import ControladorProfissionais
 from controle.controlador_clinicas import ControladorClinicas
+from controle.controlador_tipos_atendimento import \
+    ControladorTiposAtendimento
 
 
 class ControladorSistema:
@@ -10,6 +12,8 @@ class ControladorSistema:
         self.__controlador_pacientes = ControladorPacientes(self)
         self.__controlador_profissionais = ControladorProfissionais(self)
         self.__controlador_clinicas = ControladorClinicas(self)
+        self.__controlador_tipos_atendimento = \
+            ControladorTiposAtendimento(self)
         self.__tela_sistema = TelaSistema()
 
     @property
@@ -24,6 +28,10 @@ class ControladorSistema:
     def controlador_clinicas(self) -> ControladorClinicas:
         return self.__controlador_clinicas
 
+    @property
+    def controlador_tipos_atendimento(self) -> ControladorTiposAtendimento:
+        return self.__controlador_tipos_atendimento
+
     def inicializa_sistema(self) -> None:
         self.abre_tela()
 
@@ -36,6 +44,9 @@ class ControladorSistema:
     def cadastra_clinicas(self) -> None:
         self.__controlador_clinicas.abre_tela()
 
+    def cadastra_tipos_atendimento(self) -> None:
+        self.__controlador_tipos_atendimento.abre_tela()
+
     def encerra_sistema(self) -> None:
         exit(0)
 
@@ -43,6 +54,7 @@ class ControladorSistema:
         lista_opcoes = {1: self.cadastra_pacientes,
                         2: self.cadastra_profissionais,
                         3: self.cadastra_clinicas,
+                        4: self.cadastra_tipos_atendimento,
                         0: self.encerra_sistema}
 
         while True:
