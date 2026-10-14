@@ -122,6 +122,10 @@ class ControladorPacientes:
             paciente = self.pega_paciente_por_cpf(cpf_paciente)
             if paciente is None:
                 raise RegistroNaoEncontradoException("Paciente", cpf_paciente)
+            atendimentos = self.__controlador_sistema.controlador_atendimentos
+            if atendimentos.atendimentos_da_pessoa(paciente):
+                raise RegistroEmUsoException(
+                    "Paciente", "possui atendimentos registrados")
             if any(p.responsavel is paciente for p in self.__pacientes):
                 raise RegistroEmUsoException(
                     "Paciente", "e responsavel por outro paciente")

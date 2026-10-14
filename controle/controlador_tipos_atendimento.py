@@ -6,6 +6,7 @@ from exceptions.registro_repetido_exception import RegistroRepetidoException
 from exceptions.registro_nao_encontrado_exception import \
     RegistroNaoEncontradoException
 from exceptions.lista_vazia_exception import ListaVaziaException
+from exceptions.registro_em_uso_exception import RegistroEmUsoException
 
 if TYPE_CHECKING:
     from controle.controlador_sistema import ControladorSistema
@@ -89,6 +90,11 @@ class ControladorTiposAtendimento:
     def excluir_tipo(self) -> None:
         try:
             tipo = self.__seleciona_tipo()
+            atendimentos = self.__controlador_sistema.controlador_atendimentos
+            if any(a.tipo is tipo for a in atendimentos.atendimentos):
+                raise RegistroEmUsoException(
+                    "Tipo de atendimento",
+                    "e usado por atendimentos registrados")
             self.__tipos.remove(tipo)
             self.__tela_tipo.mostra_mensagem("Tipo excluido!")
         except SistemaException as e:

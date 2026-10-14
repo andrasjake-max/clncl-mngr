@@ -6,6 +6,7 @@ from exceptions.registro_repetido_exception import RegistroRepetidoException
 from exceptions.registro_nao_encontrado_exception import \
     RegistroNaoEncontradoException
 from exceptions.lista_vazia_exception import ListaVaziaException
+from exceptions.registro_em_uso_exception import RegistroEmUsoException
 
 if TYPE_CHECKING:
     from controle.controlador_sistema import ControladorSistema
@@ -95,6 +96,11 @@ class ControladorProfissionais:
             if profissional is None:
                 raise RegistroNaoEncontradoException("Profissional",
                                                      cpf_profissional)
+            atendimentos = self.__controlador_sistema.controlador_atendimentos
+            if atendimentos.atendimentos_da_pessoa(profissional):
+                raise RegistroEmUsoException(
+                    "Profissional",
+                    "possui atendimentos ou procedimentos registrados")
             clinicas = self.__controlador_sistema.controlador_clinicas
             for clinica in clinicas.clinicas:
                 clinica.excluir_profissional(profissional)

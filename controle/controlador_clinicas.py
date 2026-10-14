@@ -6,6 +6,8 @@ from exceptions.sistema_exception import SistemaException
 from exceptions.registro_nao_encontrado_exception import \
     RegistroNaoEncontradoException
 from exceptions.lista_vazia_exception import ListaVaziaException
+from exceptions.registro_em_uso_exception import RegistroEmUsoException
+from exceptions.horario_invalido_exception import HorarioInvalidoException
 
 if TYPE_CHECKING:
     from controle.controlador_sistema import ControladorSistema
@@ -73,6 +75,13 @@ class ControladorClinicas:
             novos_dados_clinica = self.__tela_clinica.pega_dados_clinica()
             abertura = novos_dados_clinica["horario_abertura"]
             fechamento = novos_dados_clinica["horario_fechamento"]
+            atendimentos = self.__controlador_sistema.controlador_atendimentos
+            for atendimento in atendimentos.atendimentos_da_clinica(clinica):
+                if not (abertura <= atendimento.hora_inicio
+                        and atendimento.hora_fim <= fechamento):
+                    raise HorarioInvalidoException(
+                        "o atendimento {} ficaria fora do novo horario de "
+                        "funcionamento".format(atendimento.codigo))
             clinica.define_funcionamento(abertura, fechamento)
             clinica.nome = novos_dados_clinica["nome"]
             clinica.cidade = novos_dados_clinica["cidade"]
@@ -99,6 +108,10 @@ class ControladorClinicas:
     def excluir_clinica(self) -> None:
         try:
             clinica = self.__seleciona_clinica()
+            atendimentos = self.__controlador_sistema.controlador_atendimentos
+            if atendimentos.atendimentos_da_clinica(clinica):
+                raise RegistroEmUsoException(
+                    "Clinica", "possui atendimentos registrados")
             self.__clinicas.remove(clinica)
             self.__tela_clinica.mostra_mensagem("Clinica excluida!")
         except SistemaException as e:
