@@ -170,6 +170,7 @@ class ControladorAtendimentos:
         try:
             if not self.__atendimentos:
                 raise ListaVaziaException("atendimento")
+            pagamentos = self.__controlador_sistema.controlador_pagamentos
             for atendimento in self.__atendimentos:
                 self.__tela_atendimento.mostra_atendimento({
                     "codigo": atendimento.codigo,
@@ -185,7 +186,8 @@ class ControladorAtendimentos:
                     "hora_fim": atendimento.hora_fim,
                     "valor": atendimento.valor,
                     "qtd_procedimentos": len(atendimento.procedimentos),
-                    "valor_total": atendimento.valor_total()})
+                    "valor_total": atendimento.valor_total(),
+                    "valor_restante": pagamentos.valor_restante(atendimento)})
         except ListaVaziaException as e:
             self.__tela_atendimento.mostra_mensagem(e)
 
