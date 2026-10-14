@@ -4,6 +4,7 @@ from controle.controlador_profissionais import ControladorProfissionais
 from controle.controlador_clinicas import ControladorClinicas
 from controle.controlador_tipos_atendimento import \
     ControladorTiposAtendimento
+from controle.controlador_atendimentos import ControladorAtendimentos
 
 
 class ControladorSistema:
@@ -14,6 +15,7 @@ class ControladorSistema:
         self.__controlador_clinicas = ControladorClinicas(self)
         self.__controlador_tipos_atendimento = \
             ControladorTiposAtendimento(self)
+        self.__controlador_atendimentos = ControladorAtendimentos(self)
         self.__tela_sistema = TelaSistema()
 
     @property
@@ -32,6 +34,10 @@ class ControladorSistema:
     def controlador_tipos_atendimento(self) -> ControladorTiposAtendimento:
         return self.__controlador_tipos_atendimento
 
+    @property
+    def controlador_atendimentos(self) -> ControladorAtendimentos:
+        return self.__controlador_atendimentos
+
     def inicializa_sistema(self) -> None:
         self.abre_tela()
 
@@ -47,6 +53,9 @@ class ControladorSistema:
     def cadastra_tipos_atendimento(self) -> None:
         self.__controlador_tipos_atendimento.abre_tela()
 
+    def registra_atendimentos(self) -> None:
+        self.__controlador_atendimentos.abre_tela()
+
     def encerra_sistema(self) -> None:
         exit(0)
 
@@ -55,6 +64,7 @@ class ControladorSistema:
                         2: self.cadastra_profissionais,
                         3: self.cadastra_clinicas,
                         4: self.cadastra_tipos_atendimento,
+                        5: self.registra_atendimentos,
                         0: self.encerra_sistema}
 
         while True:
