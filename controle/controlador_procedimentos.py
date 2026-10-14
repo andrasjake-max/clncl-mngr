@@ -8,6 +8,8 @@ from exceptions.registro_nao_encontrado_exception import \
 from exceptions.lista_vazia_exception import ListaVaziaException
 from exceptions.profissional_nao_vinculado_exception import \
     ProfissionalNaoVinculadoException
+from exceptions.pagamento_invalido_exception import \
+    PagamentoInvalidoException
 
 if TYPE_CHECKING:
     from controle.controlador_sistema import ControladorSistema
@@ -63,6 +65,13 @@ class ControladorProcedimentos:
                                                     atendimento.clinica.nome)
         return profissional
 
+    def __valida_total(self, atendimento: Atendimento,
+                       novo_total: float) -> None:
+        pagamentos = self.__controlador_sistema.controlador_pagamentos
+        if pagamentos.total_pago(atendimento) > novo_total:
+            raise PagamentoInvalidoException(
+                "o valor ja pago seria maior que o novo valor total")
+
     def incluir_procedimento(self) -> None:
         try:
             atendimento = self.__seleciona_atendimento()
@@ -85,6 +94,8 @@ class ControladorProcedimentos:
             novos_dados = self.__tela_procedimento.pega_dados_procedimento()
             profissional = self.__pega_profissional(
                 atendimento, novos_dados["cpf_profissional"])
+            self.__valida_total(atendimento, atendimento.valor_total()
+                                - procedimento.custo + novos_dados["custo"])
             procedimento.descricao = novos_dados["descricao"]
             procedimento.custo = novos_dados["custo"]
             procedimento.profissional = profissional
@@ -110,6 +121,8 @@ class ControladorProcedimentos:
     def excluir_procedimento(self) -> None:
         try:
             atendimento, procedimento = self.__seleciona_procedimento()
+            self.__valida_total(atendimento,
+                                atendimento.valor_total() - procedimento.custo)
             atendimento.excluir_procedimento(procedimento)
             self.__tela_procedimento.mostra_mensagem("Procedimento excluido!")
         except SistemaException as e:

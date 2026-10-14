@@ -7,12 +7,15 @@ from exceptions.sistema_exception import SistemaException
 from exceptions.registro_nao_encontrado_exception import \
     RegistroNaoEncontradoException
 from exceptions.lista_vazia_exception import ListaVaziaException
+from exceptions.registro_em_uso_exception import RegistroEmUsoException
 from exceptions.horario_invalido_exception import HorarioInvalidoException
 from exceptions.conflito_horario_exception import ConflitoHorarioException
 from exceptions.paciente_menor_idade_exception import \
     PacienteMenorIdadeException
 from exceptions.profissional_nao_vinculado_exception import \
     ProfissionalNaoVinculadoException
+from exceptions.pagamento_invalido_exception import \
+    PagamentoInvalidoException
 
 if TYPE_CHECKING:
     from controle.controlador_sistema import ControladorSistema
@@ -154,6 +157,17 @@ class ControladorAtendimentos:
             novos_dados = self.__tela_atendimento.pega_dados_atendimento()
             cadastros = self.__busca_cadastros(novos_dados)
             self.__valida_regras(cadastros, novos_dados, ignorar=atendimento)
+            pagamentos = self.__controlador_sistema.controlador_pagamentos \
+                .pagamentos_do_atendimento(atendimento)
+            if any(p.data > novos_dados["data"] for p in pagamentos):
+                raise PagamentoInvalidoException(
+                    "ha pagamentos com data posterior a nova data do "
+                    "atendimento")
+            novo_total = novos_dados["valor"] + sum(
+                p.custo for p in atendimento.procedimentos)
+            if sum(p.valor_pago for p in pagamentos) > novo_total:
+                raise PagamentoInvalidoException(
+                    "o valor ja pago seria maior que o novo valor total")
             atendimento.define_horario(novos_dados["data"],
                                        novos_dados["hora_inicio"],
                                        novos_dados["hora_fim"])
@@ -194,6 +208,10 @@ class ControladorAtendimentos:
     def excluir_atendimento(self) -> None:
         try:
             atendimento = self.__seleciona_atendimento()
+            pagamentos = self.__controlador_sistema.controlador_pagamentos
+            if pagamentos.pagamentos_do_atendimento(atendimento):
+                raise RegistroEmUsoException(
+                    "Atendimento", "possui pagamentos registrados")
             self.__atendimentos.remove(atendimento)
             self.__tela_atendimento.mostra_mensagem(
                 "Atendimento e seus procedimentos excluidos!")
