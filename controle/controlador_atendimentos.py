@@ -8,8 +8,11 @@ from exceptions.registro_nao_encontrado_exception import \
     RegistroNaoEncontradoException
 from exceptions.lista_vazia_exception import ListaVaziaException
 from exceptions.horario_invalido_exception import HorarioInvalidoException
+from exceptions.conflito_horario_exception import ConflitoHorarioException
 from exceptions.paciente_menor_idade_exception import \
     PacienteMenorIdadeException
+from exceptions.profissional_nao_vinculado_exception import \
+    ProfissionalNaoVinculadoException
 
 if TYPE_CHECKING:
     from controle.controlador_sistema import ControladorSistema
@@ -90,10 +93,11 @@ class ControladorAtendimentos:
         return {"clinica": clinica, "paciente": paciente,
                 "profissional": profissional, "tipo": tipo}
 
-    def __valida_regras(self, cadastros: dict,
-                        dados_atendimento: dict) -> None:
+    def __valida_regras(self, cadastros: dict, dados_atendimento: dict,
+                        ignorar: Atendimento = None) -> None:
         clinica = cadastros["clinica"]
         paciente = cadastros["paciente"]
+        profissional = cadastros["profissional"]
         data = dados_atendimento["data"]
         inicio = dados_atendimento["hora_inicio"]
         fim = dados_atendimento["hora_fim"]
@@ -107,6 +111,20 @@ class ControladorAtendimentos:
         if not paciente.pode_ser_atendido_em(data):
             raise PacienteMenorIdadeException(paciente.nome,
                                               paciente.idade_em(data))
+        if not clinica.possui_profissional(profissional):
+            raise ProfissionalNaoVinculadoException(profissional.nome,
+                                                    clinica.nome)
+        for outro in self.__atendimentos:
+            if outro is ignorar or not outro.conflita_com(data, inicio, fim):
+                continue
+            if outro.profissional is profissional:
+                raise ConflitoHorarioException(profissional.nome, data,
+                                               outro.hora_inicio,
+                                               outro.hora_fim)
+            if outro.paciente is paciente:
+                raise ConflitoHorarioException(paciente.nome, data,
+                                               outro.hora_inicio,
+                                               outro.hora_fim)
 
     def incluir_atendimento(self) -> None:
         try:
@@ -135,7 +153,7 @@ class ControladorAtendimentos:
             self.__lista_cadastros()
             novos_dados = self.__tela_atendimento.pega_dados_atendimento()
             cadastros = self.__busca_cadastros(novos_dados)
-            self.__valida_regras(cadastros, novos_dados)
+            self.__valida_regras(cadastros, novos_dados, ignorar=atendimento)
             atendimento.define_horario(novos_dados["data"],
                                        novos_dados["hora_inicio"],
                                        novos_dados["hora_fim"])
