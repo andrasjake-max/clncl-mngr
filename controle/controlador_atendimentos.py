@@ -7,6 +7,9 @@ from exceptions.sistema_exception import SistemaException
 from exceptions.registro_nao_encontrado_exception import \
     RegistroNaoEncontradoException
 from exceptions.lista_vazia_exception import ListaVaziaException
+from exceptions.horario_invalido_exception import HorarioInvalidoException
+from exceptions.paciente_menor_idade_exception import \
+    PacienteMenorIdadeException
 
 if TYPE_CHECKING:
     from controle.controlador_sistema import ControladorSistema
@@ -87,12 +90,31 @@ class ControladorAtendimentos:
         return {"clinica": clinica, "paciente": paciente,
                 "profissional": profissional, "tipo": tipo}
 
+    def __valida_regras(self, cadastros: dict,
+                        dados_atendimento: dict) -> None:
+        clinica = cadastros["clinica"]
+        paciente = cadastros["paciente"]
+        data = dados_atendimento["data"]
+        inicio = dados_atendimento["hora_inicio"]
+        fim = dados_atendimento["hora_fim"]
+        if inicio >= fim:
+            raise HorarioInvalidoException("inicio deve ser antes do fim")
+        if not clinica.funciona_entre(inicio, fim):
+            raise HorarioInvalidoException(
+                "a clinica {} funciona das {} as {}".format(
+                    clinica.nome, clinica.horario_abertura.strftime("%H:%M"),
+                    clinica.horario_fechamento.strftime("%H:%M")))
+        if not paciente.pode_ser_atendido_em(data):
+            raise PacienteMenorIdadeException(paciente.nome,
+                                              paciente.idade_em(data))
+
     def incluir_atendimento(self) -> None:
         try:
             self.__lista_cadastros()
             dados_atendimento = \
                 self.__tela_atendimento.pega_dados_atendimento()
             cadastros = self.__busca_cadastros(dados_atendimento)
+            self.__valida_regras(cadastros, dados_atendimento)
             atendimento = Atendimento(
                 self.__proximo_codigo, cadastros["clinica"],
                 cadastros["paciente"], cadastros["profissional"],
@@ -113,6 +135,7 @@ class ControladorAtendimentos:
             self.__lista_cadastros()
             novos_dados = self.__tela_atendimento.pega_dados_atendimento()
             cadastros = self.__busca_cadastros(novos_dados)
+            self.__valida_regras(cadastros, novos_dados)
             atendimento.define_horario(novos_dados["data"],
                                        novos_dados["hora_inicio"],
                                        novos_dados["hora_fim"])
