@@ -95,6 +95,9 @@ class ControladorProfissionais:
             if profissional is None:
                 raise RegistroNaoEncontradoException("Profissional",
                                                      cpf_profissional)
+            clinicas = self.__controlador_sistema.controlador_clinicas
+            for clinica in clinicas.clinicas:
+                clinica.excluir_profissional(profissional)
             self.__profissionais.remove(profissional)
             self.__tela_profissional.mostra_mensagem("Profissional excluido!")
         except SistemaException as e:
