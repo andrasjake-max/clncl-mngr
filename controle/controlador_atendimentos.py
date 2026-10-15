@@ -97,7 +97,7 @@ class ControladorAtendimentos:
                 "profissional": profissional, "tipo": tipo}
 
     def __valida_regras(self, cadastros: dict, dados_atendimento: dict,
-                        ignorar: Atendimento = None) -> None:
+                        ignorar: Atendimento | None = None) -> None:
         clinica = cadastros["clinica"]
         paciente = cadastros["paciente"]
         profissional = cadastros["profissional"]

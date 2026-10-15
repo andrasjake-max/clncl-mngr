@@ -7,6 +7,7 @@ from controle.controlador_tipos_atendimento import \
 from controle.controlador_atendimentos import ControladorAtendimentos
 from controle.controlador_procedimentos import ControladorProcedimentos
 from controle.controlador_pagamentos import ControladorPagamentos
+from controle.controlador_relatorios import ControladorRelatorios
 
 
 class ControladorSistema:
@@ -20,6 +21,7 @@ class ControladorSistema:
         self.__controlador_atendimentos = ControladorAtendimentos(self)
         self.__controlador_procedimentos = ControladorProcedimentos(self)
         self.__controlador_pagamentos = ControladorPagamentos(self)
+        self.__controlador_relatorios = ControladorRelatorios(self)
         self.__tela_sistema = TelaSistema()
 
     @property
@@ -50,6 +52,10 @@ class ControladorSistema:
     def controlador_pagamentos(self) -> ControladorPagamentos:
         return self.__controlador_pagamentos
 
+    @property
+    def controlador_relatorios(self) -> ControladorRelatorios:
+        return self.__controlador_relatorios
+
     def inicializa_sistema(self) -> None:
         self.abre_tela()
 
@@ -74,6 +80,9 @@ class ControladorSistema:
     def registra_pagamentos(self) -> None:
         self.__controlador_pagamentos.abre_tela()
 
+    def emite_relatorios(self) -> None:
+        self.__controlador_relatorios.abre_tela()
+
     def encerra_sistema(self) -> None:
         exit(0)
 
@@ -85,6 +94,7 @@ class ControladorSistema:
                         5: self.registra_atendimentos,
                         6: self.registra_procedimentos,
                         7: self.registra_pagamentos,
+                        8: self.emite_relatorios,
                         0: self.encerra_sistema}
 
         while True:
