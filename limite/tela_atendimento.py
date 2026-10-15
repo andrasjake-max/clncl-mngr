@@ -45,6 +45,8 @@ class TelaAtendimento(TelaAbstrata):
         print("PROCEDIMENTOS: ", dados_atendimento["qtd_procedimentos"])
         print("VALOR TOTAL: ",
               self.formata_valor(dados_atendimento["valor_total"]))
+        print("VALOR RESTANTE A PAGAR: ",
+              self.formata_valor(dados_atendimento["valor_restante"]))
         print("\n")
 
     def seleciona_atendimento(self) -> int:
