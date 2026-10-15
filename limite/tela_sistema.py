@@ -12,6 +12,7 @@ class TelaSistema(TelaAbstrata):
         print("5 - Atendimentos")
         print("6 - Procedimentos realizados")
         print("7 - Pagamentos")
+        print("8 - Relatorios")
         print("0 - Finalizar sistema")
-        opcao = self.le_num_inteiro("Escolha a opcao: ", list(range(0, 8)))
+        opcao = self.le_num_inteiro("Escolha a opcao: ", list(range(0, 9)))
         return opcao
