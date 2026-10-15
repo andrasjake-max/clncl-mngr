@@ -26,7 +26,7 @@ class ControladorPagamentos:
         self.__proximo_codigo = 1
 
     @property
-    def pagamentos(self) -> list:
+    def pagamentos(self) -> list[Pagamento]:
         return list(self.__pagamentos)
 
     def pega_pagamento_por_codigo(self, codigo: int) -> Pagamento | None:
@@ -35,7 +35,8 @@ class ControladorPagamentos:
                 return pagamento
         return None
 
-    def pagamentos_do_atendimento(self, atendimento: Atendimento) -> list:
+    def pagamentos_do_atendimento(
+            self, atendimento: Atendimento) -> list[Pagamento]:
         return [p for p in self.__pagamentos if p.atendimento is atendimento]
 
     def total_pago(self, atendimento: Atendimento,

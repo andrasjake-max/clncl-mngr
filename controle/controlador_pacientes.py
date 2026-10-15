@@ -22,7 +22,7 @@ class ControladorPacientes:
         self.__controlador_sistema = controlador_sistema
 
     @property
-    def pacientes(self) -> list:
+    def pacientes(self) -> list[Paciente]:
         return list(self.__pacientes)
 
     def pega_paciente_por_cpf(self, cpf: str) -> Paciente | None:

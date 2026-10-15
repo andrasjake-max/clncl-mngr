@@ -21,7 +21,7 @@ class ControladorTiposAtendimento:
         self.__proximo_codigo = 1
 
     @property
-    def tipos(self) -> list:
+    def tipos(self) -> list[TipoAtendimento]:
         return list(self.__tipos)
 
     def pega_tipo_por_codigo(self, codigo: int) -> TipoAtendimento | None:

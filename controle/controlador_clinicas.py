@@ -22,7 +22,7 @@ class ControladorClinicas:
         self.__proximo_codigo = 1
 
     @property
-    def clinicas(self) -> list:
+    def clinicas(self) -> list[Clinica]:
         return list(self.__clinicas)
 
     def pega_clinica_por_codigo(self, codigo: int) -> Clinica | None:
