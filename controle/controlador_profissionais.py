@@ -20,7 +20,7 @@ class ControladorProfissionais:
         self.__controlador_sistema = controlador_sistema
 
     @property
-    def profissionais(self) -> list:
+    def profissionais(self) -> list[ProfissionalSaude]:
         return list(self.__profissionais)
 
     def pega_profissional_por_cpf(self, cpf: str) -> ProfissionalSaude | None:

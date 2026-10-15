@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 from limite.tela_procedimento import TelaProcedimento
 from entidade.atendimento import Atendimento
+from entidade.procedimento import Procedimento
 from entidade.profissional_saude import ProfissionalSaude
 from exceptions.sistema_exception import SistemaException
 from exceptions.registro_nao_encontrado_exception import \
@@ -21,7 +22,7 @@ class ControladorProcedimentos:
         self.__tela_procedimento = TelaProcedimento()
         self.__controlador_sistema = controlador_sistema
 
-    def todos_procedimentos(self) -> list:
+    def todos_procedimentos(self) -> list[tuple[Atendimento, Procedimento]]:
         atendimentos = self.__controlador_sistema.controlador_atendimentos
         return [(a, p) for a in atendimentos.atendimentos
                 for p in a.procedimentos]

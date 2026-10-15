@@ -30,7 +30,7 @@ class ControladorAtendimentos:
         self.__proximo_codigo = 1
 
     @property
-    def atendimentos(self) -> list:
+    def atendimentos(self) -> list[Atendimento]:
         return list(self.__atendimentos)
 
     def pega_atendimento_por_codigo(self, codigo: int) -> Atendimento | None:
@@ -39,10 +39,10 @@ class ControladorAtendimentos:
                 return atendimento
         return None
 
-    def atendimentos_da_clinica(self, clinica: Clinica) -> list:
+    def atendimentos_da_clinica(self, clinica: Clinica) -> list[Atendimento]:
         return [a for a in self.__atendimentos if a.clinica is clinica]
 
-    def atendimentos_da_pessoa(self, pessoa: Pessoa) -> list:
+    def atendimentos_da_pessoa(self, pessoa: Pessoa) -> list[Atendimento]:
         return [a for a in self.__atendimentos
                 if a.paciente is pessoa or a.profissional is pessoa
                 or any(p.profissional is pessoa for p in a.procedimentos)]

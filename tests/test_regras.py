@@ -50,7 +50,7 @@ class TestRegras(unittest.TestCase):
                      pega_dados_tipo={"nome": "Consulta", "descricao": ""})
 
     def executa(self, tela: type, acao: Callable[[], None],
-                **respostas: object) -> list:
+                **respostas: object) -> list[str]:
         with ExitStack() as pilha:
             for metodo, resposta in respostas.items():
                 pilha.enter_context(
@@ -70,7 +70,7 @@ class TestRegras(unittest.TestCase):
 
     def agenda(self, cpf_paciente: str = CPF_ADULTO,
                inicio: time = time(10, 0), fim: time = time(10, 30),
-               valor: float = 100.0) -> list:
+               valor: float = 100.0) -> list[str]:
         return self.executa(TelaAtendimento, self.sistema
                             .controlador_atendimentos.incluir_atendimento,
                             pega_dados_atendimento={
@@ -82,7 +82,7 @@ class TestRegras(unittest.TestCase):
                                 "valor": valor})
 
     def paga(self, valor: float, data: date = DIA,
-             **modalidade: str) -> list:
+             **modalidade: str) -> list[str]:
         dados_pagamento = {"codigo_atendimento": 1, "data": data,
                            "valor_pago": valor, "modalidade": "dinheiro"}
         dados_pagamento.update(modalidade)
@@ -90,7 +90,7 @@ class TestRegras(unittest.TestCase):
                             .controlador_pagamentos.incluir_pagamento,
                             pega_dados_pagamento=dados_pagamento)
 
-    def atendimentos(self) -> list:
+    def atendimentos(self) -> list[Atendimento]:
         return self.sistema.controlador_atendimentos.atendimentos
 
     def atendimento(self) -> Atendimento:

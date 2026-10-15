@@ -99,7 +99,7 @@ class Atendimento:
         self.__valor = float(valor)
 
     @property
-    def procedimentos(self) -> list:
+    def procedimentos(self) -> list[Procedimento]:
         return list(self.__procedimentos)
 
     def define_horario(self, data: date, inicio: time, fim: time) -> None:

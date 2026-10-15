@@ -63,7 +63,7 @@ class Clinica:
         return self.__horario_fechamento
 
     @property
-    def profissionais(self) -> list:
+    def profissionais(self) -> list[ProfissionalSaude]:
         return list(self.__profissionais)
 
     def define_funcionamento(self, abertura: time, fechamento: time) -> None:
