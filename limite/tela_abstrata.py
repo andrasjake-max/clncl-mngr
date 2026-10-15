@@ -8,7 +8,7 @@ class TelaAbstrata(ABC):
         pass
 
     def le_num_inteiro(self, mensagem: str = " ",
-                       ints_validos: list = None) -> int:
+                       ints_validos: list | None = None) -> int:
         while True:
             valor_lido = input(mensagem)
             try:

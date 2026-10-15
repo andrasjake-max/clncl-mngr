@@ -39,12 +39,12 @@ class ControladorPagamentos:
         return [p for p in self.__pagamentos if p.atendimento is atendimento]
 
     def total_pago(self, atendimento: Atendimento,
-                   ignorar: Pagamento = None) -> float:
+                   ignorar: Pagamento | None = None) -> float:
         return sum(p.valor_pago for p in self.__pagamentos
                    if p.atendimento is atendimento and p is not ignorar)
 
     def valor_restante(self, atendimento: Atendimento,
-                       ignorar: Pagamento = None) -> float:
+                       ignorar: Pagamento | None = None) -> float:
         return round(atendimento.valor_total()
                      - self.total_pago(atendimento, ignorar), 2)
 
@@ -85,7 +85,7 @@ class ControladorPagamentos:
 
     def __valida_regras(self, atendimento: Atendimento,
                         dados_pagamento: dict,
-                        ignorar: Pagamento = None) -> None:
+                        ignorar: Pagamento | None = None) -> None:
         if dados_pagamento["data"] > atendimento.data:
             raise PagamentoInvalidoException(
                 "deve ser feito ate a data do atendimento ({})".format(
