@@ -2,10 +2,17 @@ from datetime import date
 from entidade.pessoa import Pessoa
 from exceptions.dado_invalido_exception import DadoInvalidoException
 
+IDADE_MINIMA_INDEPENDENTE = 18
+
+
+def calcula_idade(nascimento: date, data: date) -> int:
+    idade = data.year - nascimento.year
+    if (data.month, data.day) < (nascimento.month, nascimento.day):
+        idade -= 1
+    return idade
+
 
 class Paciente(Pessoa):
-    IDADE_MINIMA_INDEPENDENTE = 18
-
     def __init__(self, nome: str, celular: str, cpf: str,
                  data_nascimento: date,
                  responsavel: 'Paciente | None' = None) -> None:
@@ -42,18 +49,11 @@ class Paciente(Pessoa):
                     "responsavel", "paciente nao pode ser responsavel por si")
         self.__responsavel = responsavel
 
-    @staticmethod
-    def calcula_idade(nascimento: date, data: date) -> int:
-        idade = data.year - nascimento.year
-        if (data.month, data.day) < (nascimento.month, nascimento.day):
-            idade -= 1
-        return idade
-
     def idade_em(self, data: date) -> int:
-        return Paciente.calcula_idade(self.__data_nascimento, data)
+        return calcula_idade(self.__data_nascimento, data)
 
     def eh_maior_de_idade(self, data: date) -> bool:
-        return self.idade_em(data) >= Paciente.IDADE_MINIMA_INDEPENDENTE
+        return self.idade_em(data) >= IDADE_MINIMA_INDEPENDENTE
 
     def pode_ser_atendido_em(self, data: date) -> bool:
         if self.eh_maior_de_idade(data):

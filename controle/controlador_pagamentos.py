@@ -4,7 +4,7 @@ from entidade.atendimento import Atendimento
 from entidade.pagamento import Pagamento
 from entidade.pagamento_dinheiro import PagamentoDinheiro
 from entidade.pagamento_pix import PagamentoPix
-from entidade.pagamento_cartao import PagamentoCartao
+from entidade.pagamento_cartao import PagamentoCartao, BANDEIRAS
 from exceptions.sistema_exception import SistemaException
 from exceptions.dado_invalido_exception import DadoInvalidoException
 from exceptions.registro_nao_encontrado_exception import \
@@ -105,7 +105,7 @@ class ControladorPagamentos:
                 raise ListaVaziaException("atendimento")
             atendimentos.lista_atendimentos()
             dados_pagamento = self.__tela_pagamento.pega_dados_pagamento(
-                PagamentoCartao.BANDEIRAS)
+                BANDEIRAS)
             atendimento = self.__pega_atendimento(
                 dados_pagamento["codigo_atendimento"])
             self.__valida_regras(atendimento, dados_pagamento)
@@ -123,7 +123,7 @@ class ControladorPagamentos:
         try:
             pagamento = self.__seleciona_pagamento()
             novos_dados = self.__tela_pagamento.pega_dados_pagamento(
-                PagamentoCartao.BANDEIRAS)
+                BANDEIRAS)
             atendimento = self.__pega_atendimento(
                 novos_dados["codigo_atendimento"])
             self.__valida_regras(atendimento, novos_dados, ignorar=pagamento)
