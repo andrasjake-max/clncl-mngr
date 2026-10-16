@@ -1,9 +1,9 @@
 from limite.tela_abstrata import TelaAbstrata
 
+MODALIDADES = {1: "dinheiro", 2: "pix", 3: "cartao"}
+
 
 class TelaPagamento(TelaAbstrata):
-    MODALIDADES = {1: "dinheiro", 2: "pix", 3: "cartao"}
-
     def tela_opcoes(self) -> int:
         print("-------- PAGAMENTOS ----------")
         print("Escolha a opcao")
@@ -27,7 +27,7 @@ class TelaPagamento(TelaAbstrata):
         opcao = self.le_num_inteiro("Escolha a modalidade: ", [1, 2, 3])
         dados_pagamento = {"codigo_atendimento": codigo_atendimento,
                            "data": data, "valor_pago": valor,
-                           "modalidade": TelaPagamento.MODALIDADES[opcao]}
+                           "modalidade": MODALIDADES[opcao]}
         if opcao == 2:
             dados_pagamento["cpf_pagador"] = self.le_cpf("CPF do pagador: ")
         elif opcao == 3:

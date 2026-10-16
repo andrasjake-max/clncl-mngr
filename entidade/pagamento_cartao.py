@@ -3,10 +3,10 @@ from entidade.atendimento import Atendimento
 from entidade.pagamento import Pagamento
 from exceptions.dado_invalido_exception import DadoInvalidoException
 
+BANDEIRAS = ("Visa", "Mastercard", "Elo", "American Express", "Hipercard")
+
 
 class PagamentoCartao(Pagamento):
-    BANDEIRAS = ("Visa", "Mastercard", "Elo", "American Express", "Hipercard")
-
     def __init__(self, codigo: int, data: date, atendimento: Atendimento,
                  valor_pago: float, numero_cartao: str, bandeira: str) -> None:
         super().__init__(codigo, data, atendimento, valor_pago)
@@ -33,7 +33,7 @@ class PagamentoCartao(Pagamento):
 
     @bandeira.setter
     def bandeira(self, bandeira: str) -> None:
-        if bandeira not in PagamentoCartao.BANDEIRAS:
+        if bandeira not in BANDEIRAS:
             raise DadoInvalidoException("bandeira", "bandeira nao aceita")
         self.__bandeira = bandeira
 

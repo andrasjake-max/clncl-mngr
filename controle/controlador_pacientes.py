@@ -1,7 +1,8 @@
 from datetime import date
 from typing import TYPE_CHECKING
 from limite.tela_paciente import TelaPaciente
-from entidade.paciente import Paciente
+from entidade.paciente import Paciente, calcula_idade, \
+    IDADE_MINIMA_INDEPENDENTE
 from exceptions.sistema_exception import SistemaException
 from exceptions.dado_invalido_exception import DadoInvalidoException
 from exceptions.registro_repetido_exception import RegistroRepetidoException
@@ -32,9 +33,9 @@ class ControladorPacientes:
         return None
 
     def __pega_responsavel(self, dados_paciente: dict) -> Paciente | None:
-        idade = Paciente.calcula_idade(dados_paciente["data_nascimento"],
-                                       date.today())
-        if idade >= Paciente.IDADE_MINIMA_INDEPENDENTE:
+        idade = calcula_idade(dados_paciente["data_nascimento"],
+                              date.today())
+        if idade >= IDADE_MINIMA_INDEPENDENTE:
             return None
         cpf_responsavel = self.__tela_paciente.pega_cpf_responsavel()
         if cpf_responsavel is None:
